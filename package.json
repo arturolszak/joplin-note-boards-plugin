@@ -1,0 +1,30 @@
+{
+	"name": "joplin-plugin-note-boards",
+	"version": "1.0.0",
+	"description": "Create boards with card-like shortcuts for your notes. Organize, reorder, and access notes visually.",
+	"keywords": [
+		"joplin-plugin",
+		"boards",
+		"cards",
+		"notes",
+		"organize"
+	],
+	"scripts": {
+		"dist": "webpack --env joplin-plugin-config=buildMain && webpack --env joplin-plugin-config=buildExtraScripts && webpack --env joplin-plugin-config=createArchive",
+		"prepare": "npm run dist",
+		"update": "npm install -g generator-joplin && yo joplin --update"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^18.0.0",
+		"chalk": "^4.1.2",
+		"copy-webpack-plugin": "^11.0.0",
+		"fs-extra": "^11.1.1",
+		"glob": "^10.3.3",
+		"tar": "^6.1.15",
+		"ts-loader": "^9.4.4",
+		"typescript": "^5.1.6",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4"
+	}
+}
