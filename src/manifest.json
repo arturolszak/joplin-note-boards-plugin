@@ -8,6 +8,6 @@
 	"name": "Note Boards",
 	"description": "Create boards with card-like shortcuts for your notes. Organize, reorder, and access notes visually.",
 	"author": "Artur",
-	"homepage_url": "",
+	"homepage_url": "https://github.com/arturolszak/joplin-note-boards-plugin",
 	"categories": ["productivity", "personal knowledge management"]
 }

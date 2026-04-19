@@ -14,7 +14,7 @@
 		"prepare": "npm run dist",
 		"update": "npm install -g generator-joplin && yo joplin --update"
 	},
-	"license": "MIT",
+	"license": "BSD-2-Clause",
 	"devDependencies": {
 		"@types/node": "^18.0.0",
 		"chalk": "^4.1.2",

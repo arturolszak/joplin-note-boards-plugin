@@ -1,113 +1,90 @@
 # Note Boards — Joplin Plugin
 
-Create visual boards with card-like shortcuts to your notes. Organize, reorder, and quickly access notes from customizable boards.
+Create visual boards with card-like shortcuts to your notes. Organise, reorder, and quickly access notes from customisable grid boards — on desktop **and** mobile.
+
+## Features
+
+- **Multiple boards** — create as many boards as you need (e.g. "Work", "Reading List", "Travel")
+- **Grid layout** — notes are displayed as square cards on a configurable grid
+- **Drag-and-drop** — reorder cards by dragging them to empty cells or swapping with other cards (desktop)
+- **Inline forms** — all board/note editing happens inside the panel (no popups)
+- **Search & add** — find notes by title and add them to a board with one tap
+- **Mobile-first** — fully functional on Joplin Android / iOS; auto-closes the panel when opening a note
+- **Customisable** — per-board emoji icon and header colour; global card size, column count, and snippet settings
+- **Syncs across devices** — board data is stored in Joplin settings
 
 ## Installation
 
-1. Download the `.jpl` file from `publish/com.github.joplin.plugin.note-boards.jpl`
+1. Download the `.jpl` file from the [Releases](https://github.com/arturolszak/joplin-note-boards-plugin/releases) page (or build from source — see below)
 2. In Joplin, go to **Settings → Plugins**
 3. Click the gear icon (⚙) and select **Install from file**
 4. Choose the `.jpl` file
 5. Restart Joplin
 
+### Requirements
+
+| Platform | Minimum version |
+|----------|-----------------|
+| Desktop  | Joplin 2.10+    |
+| Mobile   | Joplin 3.0.3+   |
+
 ## Getting Started
 
 ### Desktop
 
-After installation, the plugin adds:
-
-- **Tools → Note Boards** menu with three commands
-- A **toolbar button** (grid icon) in the note toolbar
-
-To open the boards panel, do one of:
-
-- Click **Tools → Note Boards → Toggle Note Boards Panel**
-- Click the grid icon (⊞) in the note toolbar
-
-The panel appears on the right side of the app.
+- **Tools → Note Boards** menu with toggle, new-board, and add-note commands
+- **Toolbar button** (grid icon) on the note toolbar
+- The panel appears on the right side of the editor
 
 ### Mobile (Android / iOS)
 
-On mobile, plugin panels appear in a **tabbed dialog**. After installation:
-
 1. Open any note
-2. Tap the **grid icon** (⊞) in the note toolbar to open the Note Boards panel
-3. The board UI appears in a dialog overlay
+2. Tap the **grid icon** in the note toolbar
+3. The board UI opens in a plugin panel overlay
+4. Tapping a card opens the note and automatically dismisses the panel
 
 ## Usage
 
 ### Creating a Board
 
-1. Click the **+** button in the tab bar (or use **Tools → Note Boards → Create New Board** on desktop)
-2. Fill in the dialog:
-   - **Board Name** — give your board a name (e.g., "Work", "Reading List")
-   - **Icon** — pick an emoji (default: 📋)
-   - **Header Color** — choose a color for the board tab accent
-3. Click **Create**
+1. Tap the **+ New Board** button
+2. Enter a name, pick an emoji icon, and choose a header colour
+3. Tap **Create**
 
-### Adding Notes to a Board
+### Adding Notes
 
-1. In the boards panel, make sure the target board tab is active
-2. Click **+ Add Note**
-3. Type a search term in the dialog and click **Search** (leave empty to see recent notes)
-4. Pick a note from the results and click **Add to Board**
+1. Switch to the target board tab
+2. Tap **🔍 Add Note**
+3. Search by title (or leave empty to browse recent notes)
+4. Tap a result to add it — notes already on the board are filtered out
 
-Notes already on the board are automatically filtered out.
+### Opening a Note
 
-On desktop, you can also use **Tools → Note Boards → Add Note to Board**.
+Tap/click any card. On mobile the panel closes automatically; on desktop the note opens in the editor.
 
-### Opening a Note from a Board
+### Removing a Note
 
-Click/tap any card to open that note in the editor.
+Click the **✕** button on a card (visible on hover on desktop, always visible on mobile). This only removes the shortcut — the note itself is **not** deleted.
 
-### Removing a Note from a Board
+### Reordering (Desktop)
 
-Hover over a card (desktop) and click the **✕** button in the top-right corner of the card. On mobile, the ✕ button is always visible.
+Drag a card and drop it onto another card to **swap** positions, or onto an empty cell to **move** it.
 
-This only removes the shortcut from the board — the actual note is not deleted.
+### Editing / Deleting a Board
 
-### Reordering Notes (Desktop)
-
-Drag and drop cards to reorder them within a board. Grab a card and drop it onto another card to swap positions.
-
-> **Note:** Drag-and-drop is not supported on mobile touch devices.
-
-### Switching Between Boards
-
-Click/tap the board tabs at the top of the panel.
-
-### Editing a Board
-
-1. Select the board tab you want to edit
-2. Click **⚙ Settings**
-3. Update the name, icon, or color
-4. Click **Save**
-
-### Deleting a Board
-
-1. Select the board tab
-2. Click **🗑 Delete**
-3. Confirm the deletion
-
-Notes are **not** deleted — only the board and its card shortcuts are removed.
+- **⚙ Settings** — rename, change icon or colour
+- **🗑 Delete** — removes the board and its shortcuts (notes are kept)
 
 ## Settings
 
-Go to **Settings → Note Boards** to configure:
+Go to **Settings → Note Boards Plugin** to configure:
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| Show note text on cards | Display a text preview snippet below the note title | On |
-| Compact square cards | Smaller square cards with only the title — fits more on screen | Off |
-| Card snippet length | Maximum characters in the text preview (when snippets are on) | 120 |
-
-## Tips
-
-- You can add the same note to multiple boards
-- Todo notes show a checkbox icon (⬜ pending, ✅ completed)
-- Completed todos appear with a strikethrough title
-- If a note is deleted from Joplin, its card shows "⚠ Note not found" — remove it with ✕
-- Board data is stored in Joplin settings and syncs across devices
+| Show note text on cards | Display a text snippet below the title (only when card size ≥ 120 px) | On |
+| Card snippet length | Max characters in the snippet | 120 |
+| Card size | Width & height of each card (40–200 px) | 80 px |
+| Grid columns | Number of columns in the grid (2–10) | 4 |
 
 ## Platform Support
 
@@ -118,5 +95,19 @@ Go to **Settings → Note Boards** to configure:
 | Add / remove notes | ✅ | ✅ |
 | Open note from card | ✅ | ✅ |
 | Drag-and-drop reorder | ✅ | ❌ |
+| Auto-close panel on note open | — | ✅ |
 | Tools menu | ✅ | ❌ |
 | Toolbar button | ✅ | ✅ |
+
+## Building from Source
+
+```bash
+npm install
+npm run dist
+```
+
+The plugin archive is created at `publish/com.github.joplin.plugin.note-boards.jpl`.
+
+## License
+
+[BSD 2-Clause](LICENSE)
