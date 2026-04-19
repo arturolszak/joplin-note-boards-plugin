@@ -38,15 +38,20 @@
 	}
 
 	// ── Search helper ───────────────────────────────────────────────────────
+	var searchTimer = null;
+
 	function doSearch() {
 		var queryEl = document.getElementById('search-query');
+		var folderEl = document.getElementById('search-folder');
 		var resultsDiv = document.getElementById('search-results');
-		if (!queryEl || !resultsDiv) return;
+		if (!resultsDiv) return;
 
-		var query = queryEl.value.trim();
+		var query = queryEl ? queryEl.value.trim() : '';
+		var folderId = folderEl ? folderEl.value : '';
+
 		resultsDiv.innerHTML = '<div class="search-loading">Searching...</div>';
 
-		webviewApi.postMessage({ type: 'searchNotes', query: query }).then(function (notes) {
+		webviewApi.postMessage({ type: 'searchNotes', query: query, folderId: folderId }).then(function (notes) {
 			if (!notes || notes.length === 0) {
 				resultsDiv.innerHTML = '<div class="search-empty">No matching notes found.</div>';
 				return;
@@ -59,6 +64,42 @@
 			resultsDiv.innerHTML = html;
 		}).catch(function () {
 			resultsDiv.innerHTML = '<div class="search-empty">Search failed.</div>';
+		});
+	}
+
+	function doSearchDebounced() {
+		if (searchTimer) clearTimeout(searchTimer);
+		searchTimer = setTimeout(doSearch, 300);
+	}
+
+	function loadFolders() {
+		var folderEl = document.getElementById('search-folder');
+		if (!folderEl) return Promise.resolve();
+
+		return webviewApi.postMessage({ type: 'getFolders' }).then(function (folders) {
+			if (!folders) return;
+			// Build a tree to show nested names
+			var byId = {};
+			for (var i = 0; i < folders.length; i++) {
+				byId[folders[i].id] = folders[i];
+			}
+			function getPath(f) {
+				var parts = [f.title];
+				var cur = f;
+				while (cur.parent_id && byId[cur.parent_id]) {
+					cur = byId[cur.parent_id];
+					parts.unshift(cur.title);
+				}
+				return parts.join(' / ');
+			}
+			var sorted = folders.slice().sort(function (a, b) {
+				return getPath(a).localeCompare(getPath(b));
+			});
+			var html = '<option value="">All notebooks</option>';
+			for (var j = 0; j < sorted.length; j++) {
+				html += '<option value="' + escapeAttr(sorted[j].id) + '">' + escapeHtml(getPath(sorted[j])) + '</option>';
+			}
+			folderEl.innerHTML = html;
 		});
 	}
 
@@ -92,6 +133,9 @@
 			document.getElementById('search-query').value = '';
 			document.getElementById('search-results').innerHTML = '';
 			showSection('note-search');
+			loadFolders().then(function () {
+				doSearch();
+			});
 			document.getElementById('search-query').focus();
 			return;
 		}
@@ -138,12 +182,6 @@
 			return;
 		}
 
-		// Search submit
-		if (target.closest('#search-submit')) {
-			doSearch();
-			return;
-		}
-
 		// Search cancel
 		if (target.closest('#search-cancel')) {
 			showSection('board-view');
@@ -178,10 +216,16 @@
 		}
 	});
 
-	// Search with Enter key
-	document.addEventListener('keydown', function (e) {
-		if (e.target && e.target.id === 'search-query' && e.key === 'Enter') {
-			e.preventDefault();
+	// Auto-search on typing
+	document.addEventListener('input', function (e) {
+		if (e.target && e.target.id === 'search-query') {
+			doSearchDebounced();
+		}
+	});
+
+	// Folder change → re-search
+	document.addEventListener('change', function (e) {
+		if (e.target && e.target.id === 'search-folder') {
 			doSearch();
 		}
 	});

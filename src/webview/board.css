@@ -399,6 +399,32 @@ body {
 
 /* ── Search bar ──────────────────────────────────────────────────────────── */
 
+.form-label {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--text-muted);
+	margin-bottom: 4px;
+	margin-top: 8px;
+}
+
+.form-select {
+	width: 100%;
+	padding: 7px 10px;
+	border: 1px solid var(--card-border);
+	border-radius: 6px;
+	font-size: 13px;
+	background: var(--card-bg);
+	color: var(--text-primary);
+	margin-bottom: 8px;
+}
+
+.form-select:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 2px rgba(74, 159, 213, 0.2);
+}
+
 .search-bar {
 	display: flex;
 	gap: 6px;
@@ -419,6 +445,14 @@ body {
 	outline: none;
 	border-color: var(--accent);
 	box-shadow: 0 0 0 2px rgba(74, 159, 213, 0.2);
+}
+
+#search-results {
+	max-height: 300px;
+	overflow-y: auto;
+	border: 1px solid var(--card-border);
+	border-radius: 6px;
+	margin-bottom: 8px;
 }
 
 .search-result-item {

@@ -193,9 +193,13 @@ async function buildBoardHtml(data: BoardsData): Promise<string> {
 			</div>
 			<div id="note-search" class="panel-form" style="display:none;">
 				<h3>Add Note to Board</h3>
+				<label class="form-label">Notebook</label>
+				<select id="search-folder" class="form-select">
+					<option value="">All notebooks</option>
+				</select>
+				<label class="form-label">Search</label>
 				<div class="search-bar">
-					<input type="text" id="search-query" placeholder="Search (empty = recent notes)..." />
-					<button id="search-submit" class="btn-primary">Search</button>
+					<input type="text" id="search-query" placeholder="Filter by title..." />
 				</div>
 				<div id="search-results"></div>
 				<div class="form-actions">
@@ -365,16 +369,46 @@ joplin.plugins.register({
 						await refreshPanel();
 						break;
 					}
+					case 'getFolders': {
+						let folders: any[] = [];
+						try {
+							let page = 1;
+							let hasMore = true;
+							while (hasMore) {
+								const res = await joplin.data.get(['folders'], { fields: ['id', 'title', 'parent_id'], page: page, limit: 100 });
+								folders = folders.concat(res.items || []);
+								hasMore = res.has_more;
+								page++;
+							}
+						} catch (e) {
+							console.error('Note Boards: getFolders error', e);
+						}
+						return folders.map((f: any) => ({ id: f.id, title: f.title || 'Untitled', parent_id: f.parent_id || '' }));
+					}
 					case 'searchNotes': {
 						const board = data.boards.find(b => b.id === data.activeBoardId);
 						const existingIds = board ? board.notes.map(n => n.noteId) : [];
 						let notes: any[] = [];
 						try {
-							if (msg.query) {
-								const res = await joplin.data.get(['search'], { query: msg.query, fields: ['id', 'title'], limit: 20 });
+							if (msg.folderId && msg.query) {
+								// Search within a specific folder
+								const res = await joplin.data.get(['search'], { query: msg.query, fields: ['id', 'title', 'parent_id'], limit: 50 });
+								notes = (res.items || []).filter((n: any) => n.parent_id === msg.folderId);
+							} else if (msg.folderId) {
+								// All notes in folder
+								let page = 1;
+								let hasMore = true;
+								while (hasMore) {
+									const res = await joplin.data.get(['folders', msg.folderId, 'notes'], { fields: ['id', 'title'], order_by: 'updated_time', order_dir: 'DESC', page: page, limit: 100 });
+									notes = notes.concat(res.items || []);
+									hasMore = res.has_more;
+									page++;
+								}
+							} else if (msg.query) {
+								const res = await joplin.data.get(['search'], { query: msg.query, fields: ['id', 'title'], limit: 50 });
 								notes = res.items || [];
 							} else {
-								const res = await joplin.data.get(['notes'], { fields: ['id', 'title'], order_by: 'updated_time', order_dir: 'DESC', limit: 20 });
+								const res = await joplin.data.get(['notes'], { fields: ['id', 'title'], order_by: 'updated_time', order_dir: 'DESC', limit: 50 });
 								notes = res.items || [];
 							}
 						} catch (e) {
