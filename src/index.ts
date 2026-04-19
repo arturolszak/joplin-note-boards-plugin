@@ -85,6 +85,7 @@ async function buildBoardHtml(data: BoardsData): Promise<string> {
 		for (const bn of board.notes) {
 			try {
 				const note = await joplin.data.get(['notes', bn.noteId], { fields: ['id', 'title', 'body', 'is_todo', 'todo_completed'] });
+				if (!note) throw new Error('Note not found');
 				const title = escapeHtml(note.title || 'Untitled');
 				const todoClass = note.is_todo ? (note.todo_completed ? 'todo-done' : 'todo-pending') : '';
 				const todoIcon = note.is_todo ? (note.todo_completed ? '✅' : '⬜') : '';
@@ -383,7 +384,7 @@ joplin.plugins.register({
 						} catch (e) {
 							console.error('Note Boards: getFolders error', e);
 						}
-						return folders.map((f: any) => ({ id: f.id, title: f.title || 'Untitled', parent_id: f.parent_id || '' }));
+						return folders.filter((f: any) => f && f.id).map((f: any) => ({ id: f.id, title: f.title || 'Untitled', parent_id: f.parent_id || '' }));
 					}
 					case 'searchNotes': {
 						const board = data.boards.find(b => b.id === data.activeBoardId);
@@ -414,7 +415,7 @@ joplin.plugins.register({
 						} catch (e) {
 							console.error('Note Boards: search error', e);
 						}
-						notes = notes.filter((n: any) => !existingIds.includes(n.id));
+						notes = notes.filter((n: any) => n && n.id && !existingIds.includes(n.id));
 						return notes.map((n: any) => ({ id: n.id, title: n.title || 'Untitled' }));
 					}
 					case 'addNote': {
