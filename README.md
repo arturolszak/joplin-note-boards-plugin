@@ -106,7 +106,7 @@ npm install
 npm run dist
 ```
 
-The plugin archive is created at `publish/com.github.joplin.plugin.note-boards.jpl`.
+The plugin archive is created at `publish/com.crestreach.note-boards.jpl`.
 
 ## License
 
