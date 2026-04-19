@@ -6,7 +6,7 @@ Create visual boards with card-like shortcuts to your notes. Organise, reorder, 
 
 - **Multiple boards** — create as many boards as you need (e.g. "Work", "Reading List", "Travel")
 - **Grid layout** — notes are displayed as square cards on a configurable grid
-- **Drag-and-drop** — reorder cards by dragging them to empty cells or swapping with other cards (desktop)
+- **Drag-and-drop** — reorder cards by dragging them to empty cells or swapping with other cards
 - **Inline forms** — all board/note editing happens inside the panel (no popups)
 - **Search & add** — find notes by title and add them to a board with one tap
 - **Mobile-first** — fully functional on Joplin Android / iOS; auto-closes the panel when opening a note
@@ -66,7 +66,7 @@ Tap/click any card. On mobile the panel closes automatically; on desktop the not
 
 Click the **✕** button on a card (visible on hover on desktop, always visible on mobile). This only removes the shortcut — the note itself is **not** deleted.
 
-### Reordering (Desktop)
+### Reordering
 
 Drag a card and drop it onto another card to **swap** positions, or onto an empty cell to **move** it.
 
@@ -94,7 +94,7 @@ Go to **Settings → Note Boards Plugin** to configure:
 | Create / edit / delete boards | ✅ | ✅ |
 | Add / remove notes | ✅ | ✅ |
 | Open note from card | ✅ | ✅ |
-| Drag-and-drop reorder | ✅ | ❌ |
+| Drag-and-drop reorder | ✅ | ✅ |
 | Auto-close panel on note open | — | ✅ |
 | Tools menu | ✅ | ❌ |
 | Toolbar button | ✅ | ✅ |
