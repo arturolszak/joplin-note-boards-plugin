@@ -491,19 +491,18 @@ joplin.plugins.register({
 			},
 		});
 
-		// ── Toolbar button (both desktop & mobile) ─────────────────────────
-		try {
-			await joplin.views.toolbarButtons.create(
-				'noteBoardsToggle',
-				'noteBoards.toggle',
-				ToolbarButtonLocation.NoteToolbar,
-			);
-		} catch (e) {
-			console.error('Note Boards: toolbarButtons.create error', e);
-		}
-
-		// ── Desktop-only: Tools menu ──────────────────────────────────────
+		// ── Desktop-only: Toolbar button & Tools menu ────────────────────
 		if (desktop) {
+			try {
+				await joplin.views.toolbarButtons.create(
+					'noteBoardsToggle',
+					'noteBoards.toggle',
+					ToolbarButtonLocation.NoteToolbar,
+				);
+			} catch (e) {
+				console.error('Note Boards: toolbarButtons.create error', e);
+			}
+
 			try {
 				await joplin.views.menus.create('noteBoardsMenu', 'Note Boards', [
 					{ commandName: 'noteBoards.toggle' },
