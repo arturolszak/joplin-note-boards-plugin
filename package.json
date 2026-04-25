@@ -1,6 +1,6 @@
 {
 	"name": "joplin-plugin-note-boards",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Create boards with card-like shortcuts for your notes. Organize, reorder, and access notes visually.",
 	"keywords": [
 		"joplin-plugin",
@@ -14,7 +14,7 @@
 		"prepare": "npm run dist",
 		"update": "npm install -g generator-joplin && yo joplin --update"
 	},
-	"license": "BSD-2-Clause",
+	"license": "MIT",
 	"devDependencies": {
 		"@types/node": "^18.0.0",
 		"chalk": "^4.1.2",

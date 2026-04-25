@@ -15,7 +15,7 @@ Create visual boards with card-like shortcuts to your notes. Organise, reorder, 
 
 ## Installation
 
-1. Download the `.jpl` file from the [Releases](https://github.com/arturolszak/joplin-note-boards-plugin/releases) page (or build from source — see below)
+1. Download the `.jpl` file from the [Releases](https://github.com/crestreach/joplin-note-boards-plugin/releases) page (or build from source — see below)
 2. In Joplin, go to **Settings → Plugins**
 3. Click the gear icon (⚙) and select **Install from file**
 4. Choose the `.jpl` file

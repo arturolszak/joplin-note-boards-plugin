@@ -4,10 +4,10 @@
 	"app_min_version": "2.10",
 	"app_min_version_mobile": "3.0.3",
 	"platforms": ["desktop", "mobile"],
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"name": "Note Boards",
 	"description": "Create boards with card-like shortcuts for your notes. Organize, reorder, and access notes visually.",
 	"author": "Artur",
-	"homepage_url": "https://github.com/arturolszak/joplin-note-boards-plugin",
+	"homepage_url": "https://github.com/crestreach/joplin-note-boards-plugin",
 	"categories": ["productivity", "personal knowledge management"]
 }
